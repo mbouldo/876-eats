@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .fjb {
+        @apply flex justify-between;
+    }
+
+    .fjc {
+        @apply flex justify-center;
+    }
+    .fje{
+        @apply flex justify-end;
+    }
+    .f{
+        @apply flex;
+    }
+    .btn{
+        @apply py-3  text-base font-semibold rounded-lg  px-8 w-full;
+    }
+    .input{
+        @apply border rounded border-gray-300 py-3 px-2 mt-1 w-full;
+    }
+    .input-label{
+        @apply block;
+    }
+}
+
+.shake {
+    animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+  
+  @keyframes shake {
+    10%, 90% {
+      transform: translate3d(-1px, 0, 0);
+    }
+    
+    20%, 80% {
+      transform: translate3d(2px, 0, 0);
+    }
+  
+    30%, 50%, 70% {
+      transform: translate3d(-4px, 0, 0);
+    }
+  
+    40%, 60% {
+      transform: translate3d(4px, 0, 0);
+    }
+  }

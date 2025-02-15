@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jockey+One&family=Poppins:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&display=swap"
+        rel="stylesheet">
+    <link href="./output.css" rel="stylesheet">
+</head>
+
+<body class="bg-bGray text-white font-poppins">
+    <div class="flex justify-center w-full">
+        <div class="view w-[640px] border border-gray-700 ">
+
+            <nav class="py-4 border-b border-b-white">
+                <h1 class="font-jockey text-center text-4xl">867 Eats</h1>
+            </nav>
+            <main class="mx-6">
+                <div class="w-full flex justify-center mt-5">
+                    <button type="button"
+                        class="bg-bGold text-bGray btn">
+                        Back to All Orders
+                    </button>
+                </div>
+
+                <section class="bg-white min-h-[500px] mt-6 rounded text-bGray px-4 py-4" >
+                    <div class="fje">
+                        <button type='button' class="text-xs text-white bg-gray-600 px-4 py-1 rounded hover:bg-red-700">Void Order</buttonn>
+                    </div>
+                  <!-- Orders get appended here -->
+                  <div id="orders">
+
+                  </div>
+
+                    <div>
+                        <label class="text-xs">Final Sale Price</label>
+                        <input type='text' class="border rounded border-gray-300 py-3 px-2 mt-1" pattern="[0-9]*" inputmode="numeric"/>
+                    </div>
+                    <div id="completeButtons" class="mt-4">
+                        <button type="button" class="bg-[#00BC2B] text-white btn mt-3">
+                            Complete CashApp
+                        </button>
+                        <button type="button" class="bg-bGray text-white btn mt-3">
+                            Complete Cash
+                        </button>
+                        <button type="button" class="bg-[#7123D3] text-white btn mt-3">
+                            Complete Zelle
+                        </button>
+                        <button type="button" class="bg-[#008CFF] text-white btn mt-3">
+                            Complete Venmo
+                        </button>
+                        <button type="button" class="bg-bGray text-white btn mt-3">
+                            Complete (Pre-paid)
+                        </button>
+                    </div>
+
+                </section>
+            </main>
+
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="main.js"></script>
+<script>
+
+    let orders = [
+        {
+            id: 48,
+            customer_name: "John",
+            order_time: "2024-01-24 8:00:00",
+            order_status: "pending",
+            order_total: 18.45,
+            order_daily_index: 3,
+            note:'Extra spicy please',
+            order_items: [
+                {
+                    count: 1,
+                    item_name: "$14.99 Plate (Jerk Chicken, R&P)",
+                },
+                {
+                    count: 1,
+                    item_name: "+ Festivals",
+                },
+                {
+                    count: 3,
+                    item_name: "+ Vegetable",
+                }
+            ]
+        }
+    ]
+
+    function markupOrder(orderObj){
+        let timeAgoMarkup = timeAgo(orderObj.order_time);
+        let itemsMarkup = orderObj.order_items.map(item => {
+            let countMarkup = `<span class="font-bold">${item.count}x</span>`;
+            if(item.count > 1){
+                countMarkup = `<span class="text-red-500 font-bold">${item.count}x</span>`
+            }
+            return `<div>${countMarkup} ${item.item_name}</div>`
+        }).join('');
+
+        let markup = `
+                <div class=" pb-6 mt-6">
+                    <div class="fjb text-lg items-center">
+                        <h3 class="font-bold">#${orderObj.order_daily_index} ${orderObj.customer_name}</h3>
+                        <span class="text-xs">${timeAgoMarkup}</span>
+                    </div>
+                    <div class="text-md pt-1">
+                        ${itemsMarkup}
+                    </div>
+                    <div class=" pt-3">
+                        <div class="font-bold text-xs">Note:</div>
+                        ${orderObj.note}
+                    </div>
+                </div>
+        `
+        $('#orders').append(markup);
+    }
+
+    markupOrder(orders[0]);
+
+  
+
+
+
+
+
+
+</script>
+
+</html>

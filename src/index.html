@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Jockey+One&family=Poppins:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400&display=swap"
+        rel="stylesheet">
+    <link href="./output.css" rel="stylesheet">
+</head>
+
+<body class="bg-bGray text-white font-poppins">
+    <div class="flex justify-center w-full">
+        <div class="view w-[640px] border border-gray-700 ">
+
+            <nav class="py-4 border-b border-b-white">
+                <h1 class="font-jockey text-center text-4xl">867 Eats</h1>
+            </nav>
+            <main class="mx-6">
+                <div class="w-full flex justify-center mt-5">
+                    <button type="button"
+                        class="bg-bGold py-3  text-xl font-semibold rounded-lg text-bGray px-8 w-full">
+                        Create New Order
+                    </button>
+                </div>
+
+                <section class="bg-white min-h-[500px] mt-6 rounded text-bGray px-4 py-4" id="orders">
+                  <!-- Orders get appended here -->
+                </section>
+            </main>
+
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="main.js"></script>
+<script>
+
+    let orders = [
+        {
+            id: 48,
+            customer_name: "John",
+            order_time: "2024-01-24 8:00:00",
+            order_status: "pending",
+            order_total: 18.45,
+            order_daily_index: 3,
+            order_items: [
+                {
+                    count: 1,
+                    item_name: "$14.99 Plate (Jerk Chicken, R&P)",
+                },
+                {
+                    count: 1,
+                    item_name: "+ Festivals",
+                },
+                {
+                    count: 3,
+                    item_name: "+ Vegetable",
+                }
+            ]
+        }
+    ]
+
+    function markupOrder(orderObj){
+        let timeAgoMarkup = timeAgo(orderObj.order_time);
+        let itemsMarkup = orderObj.order_items.map(item => {
+            return `<li>${item.count} ${item.item_name}</li>`
+        }).join('');
+
+        let markup = `
+            <a href="/view-order/?id=${orderObj.id}">
+                <div class="border-b border-b-gray-400 pb-6 mt-6">
+                    <div class="fjb text-lg items-center">
+                        <h3 class="font-bold">#${orderObj.order_daily_index} ${orderObj.customer_name}</h3>
+                        <span class="text-xs">${timeAgoMarkup}</span>
+                    </div>
+                    <div class="text-md pt-1">
+                        ${itemsMarkup}
+                    </div>
+                </div>
+            </a>
+        `
+        $('#orders').append(markup);
+    }
+  
+    function markupAllOrders(orders){
+        orders.forEach(order => {
+            markupOrder(order);
+        })
+    }
+    markupAllOrders(orders);
+
+
+
+
+
+</script>
+
+</html>
